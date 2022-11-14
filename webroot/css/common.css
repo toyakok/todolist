@@ -1,0 +1,77 @@
+.wd3p {
+    width: 3%;
+}
+
+.wd5p {
+    width: 5%;
+}
+
+.wd7p {
+    width: 7%
+}
+
+.wd10p {
+    width: 10%;
+}
+
+.wd15p {
+    width: 15%;
+}
+
+.wd16p {
+    width: 16%;
+}
+
+.wd20p {
+    width: 20%;
+}
+
+.wd25p {
+    width: 25%;
+}
+
+.wd30p {
+    width: 30%;
+}
+
+.wd30p {
+    width: 30%;
+}
+
+.mg0 {
+    margin: 0;
+}
+
+.float-l {
+    float: left;
+}
+
+.pdl-30 {
+    padding-left: 30px;
+}
+
+.pdl-20 {
+    padding-left: 20px;
+}
+
+.pdr-20 {
+    padding-right: 20px;
+}
+
+.pd10-l {
+    padding-left: 10px;
+}
+
+.date select,
+.time select,
+.datetime select {
+    width: 28%;
+    float: left;
+    padding: 5px;
+}
+
+input[type="submit"]  {
+    height: 2.3125rem;
+    width: 5%;
+    margin: 1.5% 0 1% 0
+}
