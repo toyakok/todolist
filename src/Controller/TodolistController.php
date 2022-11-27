@@ -2,6 +2,9 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
+use Cake\Event\Event;
+use Cake\Http\ServerRequest;
 
 /**
  * Todolist Controller
@@ -19,6 +22,8 @@ class TodolistController extends AppController
      */
     public function index()
     {
+        $this->set('ajax_name', 'todolist.js');
+
         // 担当者一覧
         $persons = [0 => '佐藤一郎', 1 => '佐藤二郎', 2 => '佐藤三郎', 3 => '佐藤四郎', 4 => '佐藤五郎'];
         $this->set('persons', $persons);
@@ -30,11 +35,14 @@ class TodolistController extends AppController
         // 緊急度
         $priority = [0 => '小', 1 => '中', 2 => '大', 3 => '緊急'];
         $this->set('priority', $priority);
+
     }
 
     public function add()
     {
-        $data = $this->request->data;
-        print_r($data);
+        $data = $this->request->getData('request');
+        $connection = ConnectionManager::get('default');
+        $connection->insert('todolist', [ 'subject' => $data]);
     }
 }
+?>

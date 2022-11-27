@@ -1,10 +1,22 @@
-<p>
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>TodoList</title>
+        <?php
+        // ajax送信用のJavaSriptを読み込み
+        echo $this->Html->script('http://code.jquery.com/jquery-1.11.3.min.js');
+        //echo $this->Html->script('todolist.js');
+        echo $this->Html->script($ajax_name);
+        ?>
+    </head>
 
     <?php //common.cssの読み込み ?>
     <?=  $this->Html->css('common'); ?>
 
     <?php // フォームの作成 ?>
-    <?= $this->Form->create('todolist', ['url' => ['action' => 'add']]); ?>
+    <?php //<?= $this->Form->create('todolist', ['url' => ['action' => 'add']]); ?>
+    <?= $this->Form->create("null",["type"=> "post"]);?>
 
     <?php // タスクテキストボックス ?>
     <?= '<label class="wd30p mg0 float-l pdl-30">タスク'; ?>
@@ -66,6 +78,8 @@
 
     <?php // フォームの終了 ?>
     <?= $this->Form->end(); ?>
-</p>
 
-<?= $this->Html->script('todolist') ?>
+    <?= $this->Html->script('http://code.jquery.com/Jquery-1.11.3.min.js');?>
+    <?= $this->Html->script('todolist') ?>
+
+</html>
