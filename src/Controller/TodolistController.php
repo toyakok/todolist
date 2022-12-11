@@ -5,6 +5,9 @@ use App\Controller\AppController;
 use Cake\Datasource\ConnectionManager;
 use Cake\Event\Event;
 use Cake\Http\ServerRequest;
+use Cake\ORM\Table;
+use Cake\ORM\TableRegistry;
+use Cake\Collection\Collection;
 
 /**
  * Todolist Controller
@@ -36,13 +39,50 @@ class TodolistController extends AppController
         $priority = [0 => '小', 1 => '中', 2 => '大', 3 => '緊急'];
         $this->set('priority', $priority);
 
+        $articles = $this->getTableLocator()->get('todolist');
+        $query = $articles->find();
+        $query->select(['id', 'subject', 'person', 'state', 'priority', 'deadtime', 'crdatetime'])
+            ->where(['delflg' != '9']);
+
+        $this->set('datalist', $query);
     }
 
     public function add()
     {
-        $data = $this->request->getData('request');
-        $connection = ConnectionManager::get('default');
-        $connection->insert('todolist', [ 'subject' => $data]);
+        $subject = $this->request->getData(['subject']);
+        $person = $this->request->getData(['person']);
+        $state = $this->request->getData(['state']);
+        $priority = $this->request->getData(['priority']);
+        $deadtime = $this->request->getData(['deadtime']);
+        $delflg = '0';
+        // $connection = ConnectionManager::get('default');
+        // $connection->insert('todolist', [ 'subject' => $subject]);
+
+        $todolistData = $this->getTableLocator()->get('todolist');
+        $query = $todolistData->query();
+        $query->insert(['subject', 'person', 'state', 'priority', 'deadtime', 'delflg'])
+            ->values([
+                'subject' => $subject,
+                'person' => $person,
+                'state' => $state,
+                'priority' => $priority,
+                'deadtime' => $deadtime,
+                'delflg' => $delflg,
+        ])
+        ->execute();
+
+        //getDataを呼び出し
+        //$this->requestAction(["controller"=>"","action"=>"getData"]);
     }
+
+    // public function getData()
+    // {
+    //     $articles = $this->getTableLocator()->get('todolist');
+    //     $query = $articles->find();
+    //     $query->select(['subject', 'person', 'state', 'priority', 'deadtime'])
+    //         ->where(['delflg' != '9']);
+
+
+    // }
 }
 ?>

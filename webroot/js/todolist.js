@@ -1,40 +1,58 @@
 $(document).ready(function()
 {
     /**
-     * 送信ボタンクリック
+     * 送信ボタンクリック 登録処理
      */
     $('#btnRegist').click(function()
     {
         var csrf = $('input[name=_csrfToken').val();
-        var subject = { request : $('#txtSubject').val() };
-        console.log(subject);
-        alert( $('#txtSubject').val() );
+        //var subject = { request : $('#txtSubject').val() };
+        var subject = $('[name = subject]').val();
+        var person = $('[name = person]').val();
+        var deadtime = $('[name = deadtime]').val();
+        var priority = $('[name = priority]').val();
+        var state = $('[name = state]').val();
+        console.log("subject:"+subject);
+        console.log("person:"+person);
+        console.log("deadtime:"+deadtime);
+        console.log("priority:"+priority);
+        console.log("state:"+state);
+        //alert( $('#txtSubject').val() );
         /**
          * Ajax通信メソッド
          * @param type : HTTP通信の種類
          * @param url : リクエスト送信先のURL
-         * @param subject : サーバに送信する値
+         * @param data : サーバに送信する値
          */
         $.ajax({
             type: 'POST',
             datatype:'json',
-            url: "http://localhost:1013/todolist/todolist/add",
-            subject: subject,
+            // url: "http://localhost:1013/todolist/todolist/add",
+            url: "http://localhost/todolist/todolist/add",
+            data: {
+                subject: subject,
+                person: person,
+                state: state,
+                priority: priority,
+                deadtime: deadtime,
+
+            },
             beforeSend: function(xhr) {
                 xhr.setRequestHeader('X-CSRF-Token', csrf);
             },
             success: function(subject,datatype)
             {
-                alert('Success');
+                alert('【タスクを登録しました。】');
             },
             /**
              * Ajax通信が失敗した場合に呼び出されるメソッド
              */
             error: function(XMLHttpRequest, textStatus, errorThrown)
             {
-                alert('Error :' + errorThrown);
+                alert('【タスクの登録に失敗しました。】:' + errorThrown);
             }
         });
         return false;
     });
+
 });

@@ -37,16 +37,12 @@
     <?= '</label>'; ?>
 
     <?php // 期限選択 ?>
-    <?= '<label class="wd15p float-l">実施期限'; ?>
-    <?= $this->Form->input('datetime', array(
+    <?= '<label class="wd15p float-l pdr-20">実施期限'; ?>
+    <?= $this->Form->input('deadtime', [
         'label' => false,
-        'type' => 'date',
-        'dateFormat' => 'YMD',
-        'monthNames' => false,
-        'minYear' => date('Y') - 0,
-        'maxYear' => date('Y') + 5,
-        'id' => 'dateDeadtime',
-    )); ?>
+        'type' => 'text',
+        'id' => 'txtDeadtime',
+    ]); ?>
     <?= '</label>'; ?>
 
     <?php // 優先度選択セレクトボックス ?>
@@ -78,6 +74,26 @@
 
     <?php // フォームの終了 ?>
     <?= $this->Form->end(); ?>
+
+    <table>
+        <thead>
+            <?= $this->Html->tableHeaders(array('タスク', '担当者', '実施期限', 'ステータス', '優先度', '登録日', '編集', '削除')) ?>
+        </thead>
+        <tbody>
+            <?php foreach ($datalist as $data): ?>
+                <tr>
+                    <td><?php echo $data['subject']; ?></td>
+                    <td><?php echo $data['person']; ?></td>
+                    <td><?php echo $data['deadtime']; ?></td>
+                    <td><?php echo $data['state']; ?></td>
+                    <td><?php echo $data['priority']; ?></td>
+                    <td><?php echo $data['crdatetime']; ?></td>
+                    <td><?php echo $this->Html->link('編集',array('action'=>'edit',$data['id'])); ?></td>
+                    <td><?php echo $this->Html->link('削除',array('action'=>'delete',$data['id'])); ?></td>
+                </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
 
     <?= $this->Html->script('http://code.jquery.com/Jquery-1.11.3.min.js');?>
     <?= $this->Html->script('todolist') ?>
