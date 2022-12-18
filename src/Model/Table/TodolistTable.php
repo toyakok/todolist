@@ -48,44 +48,36 @@ class TodolistTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->integer('subject')
-            ->requirePresence('subject', 'create')
-            ->notEmptyString('subject');
+            ->scalar('subject')
+            ->maxLength('subject', 64)
+            ->allowEmptyString('subject');
 
         $validator
             ->scalar('person')
             ->maxLength('person', 20)
-            ->requirePresence('person', 'create')
-            ->notEmptyString('person');
+            ->allowEmptyString('person');
 
         $validator
             ->scalar('state')
             ->maxLength('state', 10)
-            ->requirePresence('state', 'create')
-            ->notEmptyString('state');
+            ->allowEmptyString('state');
 
         $validator
             ->scalar('priority')
             ->maxLength('priority', 10)
-            ->requirePresence('priority', 'create')
-            ->notEmptyString('priority');
+            ->allowEmptyString('priority');
 
         $validator
-            ->date('deadtime')
-            ->requirePresence('deadtime', 'create')
-            ->notEmptyDate('deadtime');
-
-        $validator
-            ->date('createtime')
-            ->allowEmptyDate('createtime');
-
-        $validator
-            ->integer('versionno')
-            ->allowEmptyString('versionno');
+            ->date('datetime')
+            ->allowEmptyDate('datetime');
 
         $validator
             ->integer('delflg')
             ->allowEmptyString('delflg');
+
+        $validator
+            ->dateTime('crdatetime')
+            ->allowEmptyDateTime('crdatetime');
 
         return $validator;
     }

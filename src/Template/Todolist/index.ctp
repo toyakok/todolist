@@ -23,6 +23,7 @@
     <?= $this->Form->contorol('subject', [
         'type' => 'text',
         'id' => 'txtSubject',
+        'value' => isset($edit_data['person']) ? $edit_data['person'] : "",
     ]); ?>
     <?= '</label>'; ?>
 
@@ -38,10 +39,10 @@
 
     <?php // 期限選択 ?>
     <?= '<label class="wd15p float-l pdr-20">実施期限'; ?>
-    <?= $this->Form->input('deadtime', [
+    <?= $this->Form->input('datetime', [
         'label' => false,
         'type' => 'text',
-        'id' => 'txtDeadtime',
+        'id' => 'txtdatetime',
     ]); ?>
     <?= '</label>'; ?>
 
@@ -66,32 +67,50 @@
     <?= '</label>'; ?>
 
     <?php // 登録ボタン ?>
-    <?= '<label> '; ?>
     <?= $this->Form->submit('登録', [
         'id' => 'btnRegist'
     ]); ?>
-    <?php '</label>'; ?>
 
     <?php // フォームの終了 ?>
     <?= $this->Form->end(); ?>
 
+    <?php
+        $persons = [0 => '佐藤一郎', 1 => '佐藤二郎', 2 => '佐藤三郎', 3 => '佐藤四郎', 4 => '佐藤五郎'];
+        $states = [0 => '未着手', 1 => '進行中', 2 => '解決', 3 => '保留'];
+        $prioritys = [0 => '小', 1 => '中', 2 => '大', 3 => '緊急'];
+    ?>
+
     <table>
         <thead>
-            <?= $this->Html->tableHeaders(array('タスク', '担当者', '実施期限', 'ステータス', '優先度', '登録日', '編集', '削除')) ?>
+            <?= $this->Html->tableHeaders(array('タスク', '担当者', '実施期限', '優先度', 'ステータス', '登録日', '', '')) ?>
         </thead>
         <tbody>
             <?php foreach ($datalist as $data): ?>
                 <tr>
                     <td><?php echo $data['subject']; ?></td>
-                    <td><?php echo $data['person']; ?></td>
-                    <td><?php echo $data['deadtime']; ?></td>
-                    <td><?php echo $data['state']; ?></td>
-                    <td><?php echo $data['priority']; ?></td>
-                    <td><?php echo $data['crdatetime']; ?></td>
-                    <td><?php echo $this->Html->link('編集',array('action'=>'edit',$data['id'])); ?></td>
-                    <td><?php echo $this->Html->link('削除',array('action'=>'delete',$data['id'])); ?></td>
+                    <td><?php echo $persons[$data['person']]; ?></td>
+                    <td><?php echo $data['datetime']; ?></td>
+                    <td><?php echo $prioritys[$data['priority']]; ?></td>
+                    <td><?php echo $states[$data['state']]; ?></td>
+                    <td><?php echo substr($data['crdatetime'], 0, 10); ?></td>
+                    <td><?php echo $this->Html->link
+                            (
+                                '編集',
+                                [
+                                    'action'=>'edit',$data->id,
+                                ],
+                                [
+                                    'id' => 'edit_btn',
+                                ]
+                            );
+                        ?>
+                    </td>
+                    <td><?php echo $this->Html->link('削除', [
+                        'action'=>'delete',$data['id']],
+                        ['id' => 'del_btn',
+                    ]); ?></td>
                 </tr>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
         </tbody>
     </table>
 

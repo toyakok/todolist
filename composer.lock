@@ -201,7 +201,7 @@
                     "homepage": "http://cakephp.org"
                 }
             ],
-            "description": "A simple API extension for DateTime.",
+            "description": "A simple API extension for datetime.",
             "homepage": "http://cakephp.org",
             "keywords": [
                 "date",

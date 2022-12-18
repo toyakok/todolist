@@ -7,14 +7,13 @@ use Cake\ORM\Entity;
  * Todolist Entity
  *
  * @property int $id
- * @property int $subject
- * @property string $person
- * @property string $state
- * @property string $priority
- * @property \Cake\I18n\FrozenDate $deadtime
- * @property \Cake\I18n\FrozenDate|null $createtime
- * @property int|null $versionno
+ * @property string|null $subject
+ * @property string|null $person
+ * @property string|null $state
+ * @property string|null $priority
+ * @property \Cake\I18n\FrozenDate|null $datetime
  * @property int|null $delflg
+ * @property \Cake\I18n\FrozenTime|null $crdatetime
  */
 class Todolist extends Entity
 {
@@ -32,9 +31,8 @@ class Todolist extends Entity
         'person' => true,
         'state' => true,
         'priority' => true,
-        'deadtime' => true,
-        'createtime' => true,
-        'versionno' => true,
+        'datetime' => true,
         'delflg' => true,
+        'crdatetime' => true,
     ];
 }
